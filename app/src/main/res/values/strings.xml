@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">食物派</string>
+    <string name="app_name">FoodPai</string>
+    <string-array name="choices">
+        <item>账号安全</item>
+        <item>清除缓存</item>
+        <item>给我们提个建议</item>
+        <item>评个分吧</item>
+        <item>将食物派分享给朋友们</item>
+        <item>HealthKit设置</item>
+    </string-array>
 </resources>
