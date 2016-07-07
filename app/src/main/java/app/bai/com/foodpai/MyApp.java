@@ -1,7 +1,6 @@
 package app.bai.com.foodpai;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -13,7 +12,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  * Created by 86724 on 2016/7/5 0005.
  */
 public class MyApp extends Application {
-    public static SharedPreferences config;
+    public static Boolean isLogin;
     private static MyApp app;
     private RequestQueue requestQueue;
 

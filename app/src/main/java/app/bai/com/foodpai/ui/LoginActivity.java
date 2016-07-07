@@ -100,10 +100,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             for (Map.Entry<String, Object> entry : entries) {
                 Log.i("info","key:"+entry.getKey()+"\tvalue:"+entry.getValue());
             }
-            MyApp.config.edit().putBoolean("isLogin",false).commit();
             String icon = platform.getDb().getUserIcon();
             String name = platform.getDb().getUserName();
-            finish();
+            MyApp.isLogin = true;
+
+            LoginActivity.this.finish();
         }
         else if(i == Platform.ACTION_AUTHORIZING)//要功能不要数据
         {
@@ -111,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(getApplication(),ContentActivity.class);
             intent.putExtra("login",true);
             startActivity(intent);
-            MyApp.config.edit().putBoolean("isLogin",false).commit();
         }
     }
 
@@ -145,9 +145,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(!TextUtils.isEmpty(userId))
         {
             //已经登陆过,直接跳转到你需要跳转的处理页面
-            Intent intent = new Intent(getApplication(),ContentActivity.class);
-            intent.putExtra("login",true);
-            startActivity(intent);
+            MyApp.isLogin = true;
+            Toast.makeText(this,"您已登录",Toast.LENGTH_LONG).show();
         }
         else{
             //注册授权监听
@@ -157,5 +156,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             platform.showUser(null);
             
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="app.bai.com.foodpai.ui.LoginActivity"
-    android:background="#FFFFFF">
+    >
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/login_toolBar">
+        android:id="@+id/login_toolBar"
+        android:background="#FFFFFF">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="qq"
+                    android:text="微信"
                     android:layout_below="@id/login_weixin_icon"/>
             </RelativeLayout>
             <RelativeLayout
@@ -77,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="qq"
+                    android:text="微博"
                     android:layout_below="@id/login_weibo_icon"/>
             </RelativeLayout>
             <RelativeLayout
@@ -94,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="qq"
+                    android:text="薄荷"
                     android:layout_below="@id/login_bohe_icon"/>
             </RelativeLayout>
         </LinearLayout>
