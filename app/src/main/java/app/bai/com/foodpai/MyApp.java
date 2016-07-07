@@ -4,7 +4,10 @@ import android.app.Application;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.exception.DbException;
 
+import app.bai.com.foodpai.bean.Collect;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -12,15 +15,54 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  * Created by 86724 on 2016/7/5 0005.
  */
 public class MyApp extends Application {
+    public static Boolean isLogin;
     private static MyApp app;
     private RequestQueue requestQueue;
+    private DbUtils dbUtils;
 
     @Override
     public void onCreate() {
         super.onCreate();
         this.app = this;
         initVolley();
+        initDbUtils();
 
+    }
+
+    private void initDbUtils() {
+        dbUtils = DbUtils.create(this,"/sdcard/Download","collect.db",1,new DbUtils.DbUpgradeListener() {
+            /**
+             *
+             * @param db
+             * @param oldVersion :旧版本号
+             * @param newVersion :新版本号
+             */
+            @Override
+            public void onUpgrade(DbUtils db, int oldVersion, int newVersion) {
+                if(oldVersion<newVersion)
+                {
+                    //dbUtils.execQuery("alter table ")
+                    try {
+                        //删除表
+                        dbUtils.dropTable(Collect.class);
+                        //创建表
+                        dbUtils.createTableIfNotExist(Collect.class);
+
+                    } catch (DbException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        //2.创建收藏表
+        try {
+            dbUtils.createTableIfNotExist(Collect.class);
+            //打印日志信息
+            dbUtils.configDebug(true);
+
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initVolley() {
@@ -56,7 +98,7 @@ public class MyApp extends Application {
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setComment(comment);
         // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSite(getString(R.string.app_name));
+        oks.setSite("食物派");
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl(url);
 

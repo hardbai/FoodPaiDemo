@@ -7,12 +7,19 @@
     android:background="#ffffff"
     tools:context="app.bai.com.foodpai.ui.AnalysisActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tb_analysis_id">
+
+    </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <RelativeLayout
-            android:layout_width="320dp"
+            android:layout_width="340dp"
             android:layout_height="30dp"
             android:background="#cccccc"
             android:layout_margin="5dp">

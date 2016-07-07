@@ -8,4 +8,9 @@
         <item>将食物派分享给朋友们</item>
         <item>HealthKit设置</item>
     </string-array>
+
+    <string-array name="collections">
+        <item>文章</item>
+        <item>食物</item>
+    </string-array>
 </resources>
