@@ -1,8 +1,11 @@
 package app.bai.com.foodpai.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class ContentActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private FrameLayout frameLayout;
     private ArrayList<BaseFragment> fragments;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,14 @@ public class ContentActivity extends AppCompatActivity {
         initView();
         initFragment();
         TabFragmentsUtils tabFragmentsUtils = new TabFragmentsUtils(radioGroup,fragments,getSupportFragmentManager(),R.id.re_frameLayout);
+        imageView = ((ImageView) findViewById(R.id.login));
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContentActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initFragment() {

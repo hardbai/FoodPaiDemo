@@ -1,6 +1,7 @@
 package app.bai.com.foodpai;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -12,6 +13,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  * Created by 86724 on 2016/7/5 0005.
  */
 public class MyApp extends Application {
+    public static SharedPreferences config;
     private static MyApp app;
     private RequestQueue requestQueue;
 
@@ -56,7 +58,7 @@ public class MyApp extends Application {
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setComment(comment);
         // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSite(getString(R.string.app_name));
+        oks.setSite("食物派");
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl(url);
 
