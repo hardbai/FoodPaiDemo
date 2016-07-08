@@ -35,7 +35,7 @@ public class ContentActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ContentActivity.this,LoginActivity.class);
+                Intent intent = new Intent(ContentActivity.this,SearchActivity.class);
                 startActivity(intent);
             }
         });
