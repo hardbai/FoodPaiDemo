@@ -1,5 +1,30 @@
 <resources>
     <string name="app_name">FoodPai</string>
+    <string-array name="orderNames">
+        <item>热量</item>
+        <item>蛋白质</item>
+        <item>脂肪</item>
+        <item>膳食纤维</item>
+        <item>碳水化合物</item>
+        <item>维生素A</item>
+        <item>维生素B1</item>
+        <item>维生素B2</item>
+        <item>维生素C</item>
+        <item>维生素E</item>
+        <item>烟酸</item>
+        <item>钠</item>
+        <item>钙</item>
+        <item>铁</item>
+        <item>钾</item>
+        <item>碘</item>
+        <item>锌</item>
+        <item>硒</item>
+        <item>镁</item>
+        <item>铜</item>
+        <item>锰</item>
+        <item>胆固醇</item>
+
+    </string-array>
     <string-array name="choices">
         <item>账号安全</item>
         <item>清除缓存</item>

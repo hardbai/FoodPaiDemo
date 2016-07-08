@@ -18,7 +18,7 @@ public class Uri {
     public static final String URL_WIKIS_I = "http://food.boohee.com/fb/v1/categories/list";
 
     //value = ?
-    public static final String URL_WIKIS_II = "http://food.boohee.com/fb/v1/foods?kind=group&value=%d&order_by=%d&page=%d";
+    public static final String URL_WIKIS_II = "http://food.boohee.com/fb/v1/foods?kind=%s&value=%d&order_by=%d&page=%d";
 
     //foods/?/mode_show
     public static final String URL_WIKIS_III = "http://food.boohee.com/fb/v1/foods/%s/mode_show";
