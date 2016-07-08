@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
-               android:textColor="@android:color/white"
+               android:textColor="@android:color/darker_gray"
                 android:text="微醺"
                 android:textSize="13sp"/>
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="15dp"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/darker_gray"
                 android:text="800人阅读"
                 android:textSize="13sp"/>
         </RelativeLayout>
