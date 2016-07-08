@@ -58,16 +58,12 @@
         <activity
             android:name=".ui.ContentActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".ui.AnalysisActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ui.UploadActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".ui.CollectActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".ui.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".ui.SearchActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".ui.SearchDitalActivity"></activity>
+        <activity android:name=".ui.ShowDetailsActivity"></activity>
     </application>
 
 </manifest>

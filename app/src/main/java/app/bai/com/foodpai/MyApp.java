@@ -9,6 +9,7 @@ import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
 
 import app.bai.com.foodpai.bean.Collect;
+import app.bai.com.foodpai.bean.Search;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -37,7 +38,7 @@ public class MyApp extends Application {
     }
 
     private void initDbUtils() {
-        dbUtils = DbUtils.create(this,"/sdcard/Download","collect.db",1,new DbUtils.DbUpgradeListener() {
+        dbUtils = DbUtils.create(this,"collect.db",1,new DbUtils.DbUpgradeListener() {
             /**
              *
              * @param db
@@ -52,8 +53,13 @@ public class MyApp extends Application {
                     try {
                         //删除表
                         dbUtils.dropTable(Collect.class);
+
+                        dbUtils.dropTable(Search.class);
+
                         //创建表
-                        dbUtils.createTableIfNotExist(Collect.class);
+                        dbUtils.createTableIfNotExist(Collect.class);//收藏webView的表
+
+                        dbUtils.createTableIfNotExist(Search.class);//搜索框中搜藏食物名的表
 
                     } catch (DbException e) {
                         e.printStackTrace();
@@ -64,12 +70,18 @@ public class MyApp extends Application {
         //2.创建收藏表
         try {
             dbUtils.createTableIfNotExist(Collect.class);
+
+            dbUtils.createTableIfNotExist(Search.class);//搜索框中搜藏食物名的表
+
             //打印日志信息
             dbUtils.configDebug(true);
 
         } catch (DbException e) {
             e.printStackTrace();
         }
+    }
+    public DbUtils getDbUtils() {
+        return dbUtils;
     }
 
     private void initVolley() {
