@@ -4,57 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="app.bai.com.foodpai.ui.ContentActivity">
+
     <RelativeLayout
-        android:background="#FFFFFF"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="#FFFFFF"
+       >
 
         <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_homepage_scan"
+            android:id="@+id/scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:id="@+id/scan"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_homepage_scan" />
 
         <ImageView
             android:id="@+id/login"
-            android:layout_toLeftOf="@id/scan"
-            android:background="#DDDDDD"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:layout_toLeftOf="@id/scan"
+            android:background="#DDDDDD" />
+
         <ImageView
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_homepage_search"
             android:layout_centerVertical="true"
-            android:layout_margin="12dp"/>
+            android:layout_margin="12dp"
+            android:src="@drawable/ic_homepage_search" />
+
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请输入食物名称"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/search"/>
+            android:layout_toRightOf="@id/search"
+            android:text="请输入食物名称" />
 
     </RelativeLayout>
-<FrameLayout
-    android:layout_below="@id/toolbar"
-    android:id="@+id/re_frameLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/radioGroup"/>
+
+    <FrameLayout
+        android:id="@+id/re_frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/radioGroup"
+        android:layout_below="@id/toolbar" />
+
     <RadioGroup
-        android:layout_marginTop="1dp"
         android:id="@+id/radioGroup"
-        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="1dp"
+        android:background="#FFFFFF"
         android:orientation="horizontal">
 
         <RadioButton
@@ -76,8 +82,8 @@
             android:drawableTop="@drawable/guide_wiki_back"
             android:gravity="center"
             android:text="食物百科"
-            android:textSize="12sp"
-            android:textColor="@color/guide_guang_tback"/>
+            android:textColor="@color/guide_guang_tback"
+            android:textSize="12sp" />
 
         <RadioButton
             android:layout_width="0dp"
@@ -87,8 +93,8 @@
             android:drawableTop="@drawable/guide_me_back"
             android:gravity="center"
             android:text="我"
-            android:textSize="12sp"
-            android:textColor="@color/guide_guang_tback"/>
+            android:textColor="@color/guide_guang_tback"
+            android:textSize="12sp" />
     </RadioGroup>
 
 </RelativeLayout>

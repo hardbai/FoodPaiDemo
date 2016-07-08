@@ -1,18 +1,26 @@
 package app.bai.com.foodpai.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+
 import app.bai.com.foodpai.MyAdapter.MyAdapter;
 import app.bai.com.foodpai.R;
+import app.bai.com.foodpai.bean.User;
 import app.bai.com.foodpai.ui.AnalysisActivity;
 import app.bai.com.foodpai.ui.CollectActivity;
 import app.bai.com.foodpai.ui.LoginActivity;
@@ -26,6 +34,20 @@ public class MeFragment extends BaseFragment {
     private View view;
     private String[] data;
     private PopupWindow mPopWindow;
+    private static ImageView imageView;
+    static Context context;
+    public static Handler loginHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            User user = ((User) msg.obj);
+            user.getUserIcon();
+            user.getUserName();
+            Glide.with(context).load(user.getUserIcon()).into(imageView);
+        }
+    };
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,6 +62,8 @@ public class MeFragment extends BaseFragment {
         aboutCollect();
         //关于listView的操作
         aboutListView();
+        imageView = ((ImageView) view.findViewById(R.id.iv_login_id));
+        context = getContext();
         return view;
     }
 

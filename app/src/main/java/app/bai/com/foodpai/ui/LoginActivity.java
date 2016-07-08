@@ -2,11 +2,13 @@ package app.bai.com.foodpai.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import java.util.Set;
 
 import app.bai.com.foodpai.MyApp;
 import app.bai.com.foodpai.R;
+import app.bai.com.foodpai.bean.User;
+import app.bai.com.foodpai.fragment.MeFragment;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -39,6 +43,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         ShareSDK.initSDK(this);
         setContentView(R.layout.activity_login);
+        //透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //透明导航栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         initView();
         initToolbar();
         listenner();
@@ -105,7 +113,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             String icon = platform.getDb().getUserIcon();
             String name = platform.getDb().getUserName();
-            MyApp.getApp().getConfig().edit().putBoolean("isLogin",true);
+            User user = new User(name, icon);
+            Message message = MeFragment.loginHandler.obtainMessage();
+            message.obj = user;
+            MeFragment.loginHandler.sendMessage(message);
+            MyApp.getApp().getConfig().edit().putBoolean("isLogin",true).commit();
             LoginActivity.this.finish();
         }
         else if(i == Platform.ACTION_AUTHORIZING)//要功能不要数据
