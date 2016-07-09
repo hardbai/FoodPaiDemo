@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -46,14 +48,14 @@ public class WikiListActivity extends AppCompatActivity {
     private List<ListFoodForWiki.FoodsBean> foods;//整个wiki的数据源
     private MyWikiListAdapter adapter;//wiki的适配器
     private ListView myListView;//pullToRefreshListView里面真正的ListView
-    private TextView wiki_list_order_tv_id;//排序跟向下箭头,用来添加监听显示PopUpWindow
+    private CheckBox wiki_list_order_cb_id;//排序跟向下箭头,用来添加监听显示PopUpWindow
     private GridView popupwindowOrderGvId;//PopUpWindow里面的GridView
     private RelativeLayout mRelativeLayoutId;//排序整个LinearLayout,用来给PopUpWindow定位
     private PopupWindow mPopupWindow;//声明opUpWindow
     private PopupWindow mSubPopupWindow;//声明子数据opUpWindow
     private boolean isShow = false;//判断PopUpWindow是否显示
     private boolean subIsShow = false;//判断子数据popupwindow是否显示
-    private TextView wiki_list_changeorder_tv_id;//调整排序
+    private CheckBox wiki_list_changeorder_cb_id;//调整排序
     private String[] orderNames;//排序选项
     private TextView wiki_list_title_id;//toolbar 的标题
     private TextView wiki_list_sub_id;//toolbar里面的TextView,子数据的popupwindow就显示在它下面
@@ -121,7 +123,7 @@ public class WikiListActivity extends AppCompatActivity {
         //思路
         //数据源
         //适配器
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,subs);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.popup_text_item,subs);
         sub_popup_lv_id.setAdapter(adapter);
         //监听
         sub_popup_lv_id.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -189,7 +191,7 @@ public class WikiListActivity extends AppCompatActivity {
 
     //关于orderlinearlayout的操作(排序)
     private void aboutWikiListOrderLlId() {
-        wiki_list_order_tv_id.setOnClickListener(new View.OnClickListener() {
+        wiki_list_order_cb_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -203,10 +205,21 @@ public class WikiListActivity extends AppCompatActivity {
                 }
             }
         });
-        wiki_list_changeorder_tv_id.setOnClickListener(new View.OnClickListener() {
+//        wiki_list_changeorder_cb_id.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//            }
+//        });
+        wiki_list_changeorder_cb_id.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                //TODO在这里给调整排序更新
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    wiki_list_changeorder_cb_id.setText("从低到高");
+                }else{
+                    wiki_list_changeorder_cb_id.setText("从高到低");
+                }
                 adapter.reverseData();
             }
         });
@@ -228,15 +241,17 @@ public class WikiListActivity extends AppCompatActivity {
         final String[] orderNames = getResources().getStringArray(R.array.orderNames);
 
         //准备适配器
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,orderNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.popup_text_item,orderNames);
         popupwindowOrderGvId.setAdapter(adapter);
         //添加监听
         popupwindowOrderGvId.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                wiki_list_order_tv_id.setText(orderNames[i]);
-                wiki_list_changeorder_tv_id.setVisibility(View.VISIBLE);
+                wiki_list_order_cb_id.setText(orderNames[i]);
+                wiki_list_order_cb_id.setChecked(false);
+                isShow=false;
+                wiki_list_changeorder_cb_id.setVisibility(View.VISIBLE);
                 order = i;
                 String orderUrl = String.format(Uri.URL_WIKIS_II,kind,value,order,1);
                 fillDataSource(orderUrl);
@@ -288,9 +303,9 @@ public class WikiListActivity extends AppCompatActivity {
     private void initWidget() {
         wiki_list_title_id = (TextView) findViewById(R.id.wiki_list_title_id);
         wiki_list_lv_id = (PullToRefreshListView) findViewById(R.id.wiki_list_lv_id);
-        wiki_list_order_tv_id = ((TextView) findViewById(R.id.wiki_list_order_tv_id));
+        wiki_list_order_cb_id = ((CheckBox) findViewById(R.id.wiki_list_order_cb_id));
         mRelativeLayoutId = ((RelativeLayout) findViewById(R.id.wiki_list_rl_id));
-        wiki_list_changeorder_tv_id = ((TextView) findViewById(R.id.wiki_list_changeorder_tv_id));
+        wiki_list_changeorder_cb_id = ((CheckBox) findViewById(R.id.wiki_list_changeorder_cb_id));
         wiki_list_sub_id = ((TextView) findViewById(R.id.wiki_list_sub_id));
     }
 

@@ -21,9 +21,10 @@
             android:textColor="#000000"
             android:textSize="15dp"
             android:layout_gravity="end"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
             android:drawableRight="@drawable/popup_switch_up_down"
             android:text="全部"/>
     </android.support.v7.widget.Toolbar>
@@ -40,24 +41,29 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/wiki_list_order_tv_id"
+            <CheckBox
+                android:gravity="center_vertical"
+                android:id="@+id/wiki_list_order_cb_id"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="营养素排序"
+                android:button="@null"
                 android:drawableRight="@drawable/popup_switch_up_down"
-                android:layout_margin="10dp"/>
+                android:layout_marginLeft="10dp"/>
 
-            <TextView
+            <CheckBox
+                android:gravity="center_vertical"
                 android:visibility="invisible"
+                android:button="@null"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:id="@+id/wiki_list_changeorder_tv_id"
+                android:layout_marginRight="10dp"
+                android:id="@+id/wiki_list_changeorder_cb_id"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:textColor="#ff0000"
-                android:text="调整排序"/>
+                android:drawableRight="@drawable/change_order_up_down"
+                android:text="从高到低"/>
     </RelativeLayout>
     <TextView
         android:id="@+id/wiki_list_line2_tv_id"
@@ -68,6 +74,7 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/wiki_list_lv_id"
         android:layout_below="@id/wiki_list_line2_tv_id"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
