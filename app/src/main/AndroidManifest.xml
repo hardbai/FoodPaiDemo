@@ -74,6 +74,23 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".ui.WikiListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.DraftsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.UploadFoodDetailsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.SearchActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.UploadFoodActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.FoodAnalysisiActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
     </application>
 
 </manifest>

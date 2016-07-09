@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="hello"
         android:textSize="20sp"
+        android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"/>
 
     <ImageView

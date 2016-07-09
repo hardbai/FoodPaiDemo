@@ -33,9 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Toolbar toolbar;
     private ImageView qq;
     private ImageView weChat;
-
     private ImageView weibo;
-
     private ImageView bohe;
 
     @Override

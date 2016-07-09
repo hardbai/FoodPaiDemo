@@ -68,7 +68,7 @@ public class MeFragment extends BaseFragment {
     }
 
     private void aboutLogin() {
-        View login = view.findViewById(R.id.tv_login_id);
+        View login = view.findViewById(R.id.btn_login_id);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
