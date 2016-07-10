@@ -88,6 +88,7 @@ public class WikiListActivity extends AppCompatActivity {
 
 
     }
+
     //关于子数据的操作
     private void aboutSubCategories() {
         if(!subs.isEmpty()){
@@ -108,6 +109,7 @@ public class WikiListActivity extends AppCompatActivity {
         }
 
     }
+
     //子数据通过popupwindow弹出来
     private void showSubPopupWindow() {
         View view = LayoutInflater.from(this).inflate(R.layout.subpopupwindow,null);
@@ -118,6 +120,7 @@ public class WikiListActivity extends AppCompatActivity {
         mSubPopupWindow.setOutsideTouchable(true);
         mSubPopupWindow.showAsDropDown(wiki_list_sub_id);
     }
+
     //关于子数据popupwindow里面的listView的操作
     private void aboutSubPopupLvId() {
         //思路
@@ -168,6 +171,14 @@ public class WikiListActivity extends AppCompatActivity {
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String code = ((ListFoodForWiki.FoodsBean) adapter.getItem(i-1)).getCode();
+                String name = ((ListFoodForWiki.FoodsBean) adapter.getItem(i-1)).getName();
+
+                Intent detialIntent = new Intent(WikiListActivity.this,FoodDetialActivity.class);
+                detialIntent.putExtra("code",code);
+                detialIntent.putExtra("name",name);
+
+                startActivity(detialIntent);
 
             }
         });
@@ -224,6 +235,7 @@ public class WikiListActivity extends AppCompatActivity {
             }
         });
     }
+
     //显示popupWindow
     private void showPopupWindow() {
         View view = LayoutInflater.from(this).inflate(R.layout.popupwindow,null);
@@ -234,6 +246,7 @@ public class WikiListActivity extends AppCompatActivity {
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.showAsDropDown(mRelativeLayoutId);
     }
+
     //关于orderGridView的操作
     private void aboutPopupWindowOrderGvId() {
         //思路

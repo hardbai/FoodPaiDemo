@@ -79,8 +79,10 @@
         <activity
             android:name=".ui.WikiListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ui.FoodDetialActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.FoodDetialActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ui.MoreElementActivity"></activity>
     </application>
 
 </manifest>
