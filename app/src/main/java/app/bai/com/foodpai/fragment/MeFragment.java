@@ -28,6 +28,7 @@ import app.bai.com.foodpai.ui.CollectActivity;
 import app.bai.com.foodpai.ui.LoginActivity;
 import app.bai.com.foodpai.ui.UploadActivity;
 import app.bai.com.foodpai.utils.MyListView;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by 86724 on 2016/7/5 0005.
@@ -36,24 +37,43 @@ public class MeFragment extends BaseFragment {
     private View view;
     private String[] data;
     private PopupWindow mPopWindow;
-    private Button btn_exit;
+    private static Button btn_exit;
     private static ImageView imageView;
     static Context context;
+    private static Button login;
     public static Handler loginHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             User user = ((User) msg.obj);
-            user.getUserIcon();
-            user.getUserName();
-            Glide.with(context).load(user.getUserIcon()).into(imageView);
+            Glide.with(context).load(user.getUserIcon()).bitmapTransform(new CropCircleTransformation(context)).into(imageView);
+            btn_exit.setVisibility(View.VISIBLE);
+            login.setText(user.getUserName());
+            login.setEnabled(false);
         }
     };
+    private Intent intent;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.me_fragment_layout, null);
+        intent = new Intent(getContext(),LoginActivity.class);
+        imageView = ((ImageView) view.findViewById(R.id.iv_login_id));
+        btn_exit = (Button) view.findViewById(R.id.btn_exit_id);
+        if(MyApp.getApp().config.getBoolean("isLogin",false)){
+            btn_exit.setVisibility(View.VISIBLE);
+        }else {
+            btn_exit.setVisibility(View.GONE);
+            Glide.with(getContext()).load(R.drawable.ic_analyse_default).bitmapTransform(new CropCircleTransformation(getContext())).into(imageView);
+        }
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeLogin();
+            }
+        });
         //登录操作
         aboutLogin();
         //关于<饮食分析>的操作
@@ -64,23 +84,19 @@ public class MeFragment extends BaseFragment {
         aboutCollect();
         //关于listView的操作
         aboutListView();
-        imageView = ((ImageView) view.findViewById(R.id.iv_login_id));
+
         context = getContext();
         //about(out 0f login);
-        aboutBtnExit();
         return view;
     }
 
-    private void aboutBtnExit() {
-        btn_exit = (Button) view.findViewById(R.id.btn_exit_id);
-    }
 
     private void aboutLogin() {
-        View login = view.findViewById(R.id.btn_login_id);
+
+        login = ((Button) view.findViewById(R.id.btn_login_id));
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -91,8 +107,13 @@ public class MeFragment extends BaseFragment {
         rl_analysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AnalysisActivity.class);
-                startActivity(intent);
+                if (MyApp.getApp().config.getBoolean("isLogin",false)){
+                    Intent intent = new Intent(getContext(), AnalysisActivity.class);
+                    startActivity(intent);
+                }else {
+                    startActivity(intent);
+                }
+
             }
         });
     }
@@ -101,8 +122,13 @@ public class MeFragment extends BaseFragment {
         rl_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), UploadActivity.class);
-                startActivity(intent);
+                if(MyApp.getApp().config.getBoolean("isLogin",false)){
+                    Intent intent = new Intent(getContext(), UploadActivity.class);
+                    startActivity(intent);
+                }else {
+                    startActivity(intent);
+                }
+
             }
         });
     }
@@ -111,10 +137,23 @@ public class MeFragment extends BaseFragment {
         rl_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), CollectActivity.class);
-                startActivity(intent);
+                if(MyApp.getApp().config.getBoolean("isLogin",false)){
+                    Intent intent = new Intent(getContext(), CollectActivity.class);
+                    startActivity(intent);
+                }else {
+                    startActivity(intent);
+                }
+
             }
         });
+    }
+    public void removeLogin(){
+        Glide.with(getContext()).load(R.drawable.ic_analyse_default).bitmapTransform(new CropCircleTransformation(getContext())).into(imageView);
+        MyApp.getApp().config.edit().putBoolean("isLogin",false).commit();
+        btn_exit.setVisibility(View.GONE);
+        LoginActivity.removeHandler.sendEmptyMessage(1);
+        login.setEnabled(true);
+        login.setText("点击登录");
     }
     private void aboutListView() {
         //获取所需控件
@@ -166,4 +205,5 @@ public class MeFragment extends BaseFragment {
         mPopWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
     }
-    }
+
+}

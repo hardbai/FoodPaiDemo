@@ -2,6 +2,7 @@ package app.bai.com.foodpai.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ImageView weChat;
     private ImageView weibo;
     private ImageView bohe;
+    private static Platform platform;
+    public static Handler removeHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(platform!=null) {
+                platform.removeAccount();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +91,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login_qq_icon:
-                loginDeal(new QQ(this));
+                loginDeal(platform = new QQ(this));
                 break;
             case R.id.login_weixin_icon:
-                loginDeal(new Wechat(this));
+                loginDeal(platform = new Wechat(this));
                 break;
             case R.id.login_weibo_icon:
-                loginDeal(new SinaWeibo(this));
+                loginDeal(platform = new SinaWeibo(this));
                 break;
             case R.id.login_bohe_icon:
-                loginDeal(new QZone(this));
+                loginDeal(platform = new QZone(this));
                 break;
 
         }
