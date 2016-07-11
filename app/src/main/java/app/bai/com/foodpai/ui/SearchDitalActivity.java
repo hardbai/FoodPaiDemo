@@ -124,7 +124,7 @@ public class SearchDitalActivity extends AppCompatActivity {
                 loadData();
             }
         });
-        order = ((TextView) findViewById(R.id.tv_list_order));
+       // order = ((TextView) findViewById(R.id.tv_list_order));
         searchResult222 = ((PullToRefreshListView) findViewById(R.id.search_result_ptrlv));
     }
 
