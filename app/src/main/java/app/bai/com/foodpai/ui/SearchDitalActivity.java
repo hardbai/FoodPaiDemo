@@ -127,4 +127,10 @@ public class SearchDitalActivity extends AppCompatActivity {
         order = ((TextView) findViewById(R.id.tv_list_order));
         searchResult222 = ((PullToRefreshListView) findViewById(R.id.search_result_ptrlv));
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApp.getApp().getRequestQueue().cancelAll("DataIsOk");
+    }
 }
