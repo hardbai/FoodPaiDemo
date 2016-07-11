@@ -9,7 +9,9 @@ import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
 
 import app.bai.com.foodpai.bean.Collect;
+import app.bai.com.foodpai.bean.FoodCollect;
 import app.bai.com.foodpai.bean.Search;
+import app.bai.com.foodpai.bean.UploadFood;
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -34,8 +36,7 @@ public class MyApp extends Application {
         config = getSharedPreferences("config", MODE_PRIVATE);
         initVolley();
         initDbUtils();
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
+
 
     }
 
@@ -58,10 +59,14 @@ public class MyApp extends Application {
 
                         dbUtils.dropTable(Search.class);
 
+                        dbUtils.dropTable(FoodCollect.class);
+
                         //创建表
                         dbUtils.createTableIfNotExist(Collect.class);//收藏webView的表
 
                         dbUtils.createTableIfNotExist(Search.class);//搜索框中搜藏食物名的表
+
+                        dbUtils.createTableIfNotExist(FoodCollect.class);
 
                     } catch (DbException e) {
                         e.printStackTrace();
@@ -74,6 +79,10 @@ public class MyApp extends Application {
             dbUtils.createTableIfNotExist(Collect.class);
 
             dbUtils.createTableIfNotExist(Search.class);//搜索框中搜藏食物名的表
+
+            dbUtils.createTableIfNotExist(FoodCollect.class);
+
+            dbUtils.createTableIfNotExist(UploadFood.class);
 
             //打印日志信息
             dbUtils.configDebug(true);
