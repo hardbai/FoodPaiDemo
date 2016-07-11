@@ -1,5 +1,9 @@
 [
     {
+        "merged": "F:\\item\\FoodPaiDemo\\refresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\default_ptr_rotate.png",
+        "source": "F:\\item\\FoodPaiDemo\\refresh\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\default_ptr_rotate.png"
+    },
+    {
         "merged": "C:\\Users\\Administrator\\Desktop\\FoodPaiDemo\\refresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\default_ptr_flip.png",
         "source": "C:\\Users\\Administrator\\Desktop\\FoodPaiDemo\\refresh\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\default_ptr_flip.png"
     },
@@ -16,8 +20,16 @@
         "source": "C:\\Users\\Administrator\\Desktop\\FoodPaiDemo\\refresh\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\default_ptr_rotate.png"
     },
     {
+        "merged": "F:\\item\\FoodPaiDemo\\refresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\indicator_arrow.png",
+        "source": "F:\\item\\FoodPaiDemo\\refresh\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\indicator_arrow.png"
+    },
+    {
         "merged": "D:\\FoodPaiDemo\\refresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\default_ptr_flip.png",
         "source": "D:\\FoodPaiDemo\\refresh\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\default_ptr_flip.png"
+    },
+    {
+        "merged": "F:\\item\\FoodPaiDemo\\refresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\default_ptr_flip.png",
+        "source": "F:\\item\\FoodPaiDemo\\refresh\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\default_ptr_flip.png"
     },
     {
         "merged": "D:\\FoodPaiDemo\\refresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\indicator_arrow.png",

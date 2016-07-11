@@ -168,7 +168,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(!TextUtils.isEmpty(userId))
         {
             //已经登陆过,直接跳转到你需要跳转的处理页面
-            MyApp.getApp().getConfig().edit().putBoolean("isLogin",true);
+            String icon = platform.getDb().getUserIcon();
+            String name = platform.getDb().getUserName();
+            User user = new User(name, icon);
+            Message message = MeFragment.loginHandler.obtainMessage();
+            message.obj = user;
+            MeFragment.loginHandler.sendMessage(message);
+            MyApp.getApp().getConfig().edit().putBoolean("isLogin",true).commit();
+            LoginActivity.this.finish();
             Toast.makeText(this,"您已登录",Toast.LENGTH_LONG).show();
         }
         else{
