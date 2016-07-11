@@ -36,29 +36,12 @@
             />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
-
-
-
-    <RelativeLayout
-        android:background="#ffffff"
-        android:id="@+id/order_layout"
-        android:layout_below="@id/dital_search_toolbar"
-        android:orientation="horizontal"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:id="@+id/tv_list_order"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="营养素排序"
-            android:drawableRight="@drawable/popup_switch_up_down"
-            android:layout_margin="10dp"/>
-    </RelativeLayout>
-
+        android:layout_height="5dp"></View>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/search_result_ptrlv"
-        android:layout_below="@id/order_layout"
+        android:layout_below="@id/dital_search_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
