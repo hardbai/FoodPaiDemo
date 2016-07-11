@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_food_collection_id"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:src= "@drawable/ic_delicious"/>
+    <TextView
+        android:id="@+id/tv_food_collection_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="西瓜"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@id/iv_food_collection_id"
+        android:layout_marginLeft="15dp"
+        android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/tv_food_collection_calory_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="200.00"
+        android:layout_toRightOf="@id/iv_food_collection_id"
+        android:layout_below="@id/tv_food_collection_id"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="卡路里/100克"
+        android:layout_toRightOf="@id/tv_food_collection_calory_id"
+        android:layout_below="@id/tv_food_collection_id"
+        android:layout_marginLeft="5dp"
+        android:textSize="15sp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
