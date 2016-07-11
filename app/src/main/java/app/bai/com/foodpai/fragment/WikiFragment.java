@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
@@ -42,11 +44,14 @@ public class WikiFragment extends BaseFragment {
     private View wiki_group_ll_id;
     private View wiki_brand_ll_id;
     private View wiki_res_ll_id;
+    private PullToRefreshScrollView pull_refresh_scrollview;
+    private ScrollView mScrollView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wiki_fragment_layout,null);
+        pull_refresh_scrollview = ((PullToRefreshScrollView) view.findViewById(R.id.pull_refresh_scrollview));
         wiki_compare_ll_id = (LinearLayout) view.findViewById(R.id.wiki_compare_ll_id);
         wiki_group_gv_id = (MyGridView) view .findViewById(R.id.wiki_group_gv_id);
         wiki_brand_gv_id= (MyGridView) view .findViewById(R.id.wiki_brand_gv_id);
@@ -67,14 +72,23 @@ public class WikiFragment extends BaseFragment {
         wiki_group_ll_id.setVisibility(View.GONE);
         wiki_brand_ll_id.setVisibility(View.GONE);
         wiki_res_ll_id.setVisibility(View.GONE);
-        PullToRefreshScrollView p = null;
+
 
         //思路:
         //1)准备数据
-        String url = Uri.URL_WIKIS_I;
+        final String url = Uri.URL_WIKIS_I;
         data = new ArrayList<>();
         initDataSource(url);
         //2)准备适配器
+        pull_refresh_scrollview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        pull_refresh_scrollview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                initDataSource(url);
+            }
+
+        });
+        mScrollView = pull_refresh_scrollview.getRefreshableView();
         adapterForGroup = new MyWikiAdapterForPrimary(0,getContext(),data);
         adapterForBrand = new MyWikiAdapterForPrimary(1,getContext(),data);
         adapterForRes = new MyWikiAdapterForPrimary(2,getContext(),data);
@@ -151,6 +165,7 @@ public class WikiFragment extends BaseFragment {
                 wiki_group_ll_id.setVisibility(View.VISIBLE);
                 wiki_brand_ll_id.setVisibility(View.VISIBLE);
                 wiki_res_ll_id.setVisibility(View.VISIBLE);
+                pull_refresh_scrollview.onRefreshComplete();
 //                food.getGroup();
                 adapterForGroup.addAll(food.getGroup());
                 adapterForBrand.addAll(food.getGroup());
