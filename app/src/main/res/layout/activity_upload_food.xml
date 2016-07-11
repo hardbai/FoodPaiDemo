@@ -102,7 +102,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="完成"
+            android:text="开始上传"
             android:textColor="#FFFFFF"
             android:background="#FF0000"
             android:onClick="finish"/>

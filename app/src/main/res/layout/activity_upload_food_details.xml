@@ -21,6 +21,7 @@
     </android.support.v7.widget.Toolbar>
 
     <ListView
+        android:id="@+id/lv_upload_food_details_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="2dp">

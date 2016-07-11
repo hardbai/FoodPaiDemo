@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="HealthKit设置"
+        android:textSize="15sp"
         android:gravity="center"
         android:textColor="#ffffff" />
     </RelativeLayout>
@@ -33,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="要调整[HealthKit]和[食物派]互相共享的数据,请打开手机上[健康应用程序.]"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:layout_toRightOf="@+id/keep_heighlight" />
     </RelativeLayout>
 
@@ -53,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="打开[健康应用程序后,点击[来源]图标."
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:layout_toRightOf="@+id/keep_heighlight1"/>
     </RelativeLayout>
 
@@ -71,8 +72,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="从来源列表中选择[食物派],以启用或禁止共享权限."
-            android:textSize="20sp"
-            android:layout_toRightOf="@+id/keep_heighlight2"/>
+            android:textSize="15sp"
+            android:layout_toRightOf="@+id/keep_heighlight2"
+            android:layout_marginBottom="10dp"/>
     </RelativeLayout>
 
 

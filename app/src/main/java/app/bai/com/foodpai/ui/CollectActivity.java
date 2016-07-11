@@ -20,11 +20,12 @@ public class CollectActivity extends AppCompatActivity {
     private ViewPager vp_id;
     private String[] tabNames;
     private List<Collec_Fragment> fragments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect);
-        tb_collect = (Toolbar)findViewById(R.id.tb_collect_id);
+        tb_collect = (Toolbar) findViewById(R.id.tb_collect_id);
         tb_collect.setTitle("");
         setSupportActionBar(tb_collect);
         tb_collect.setNavigationIcon(R.drawable.ic_back_dark);
@@ -37,18 +38,21 @@ public class CollectActivity extends AppCompatActivity {
         //获取界面上的控件
         initWidgets();
         initData();
-        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager(),tabNames,fragments);
+        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager(), tabNames, fragments);
         vp_id.setAdapter(adapter);
         tl_id.setupWithViewPager(vp_id);
     }
+
     private void initData() {
         fragments = new ArrayList<>();
         fragments.add(new Collec_Fragment());
         fragments.add(new Collec_Fragment());
     }
+
     private void initWidgets() {
         tl_id = (TabLayout) findViewById(R.id.tl_id);
         vp_id = (ViewPager) findViewById(R.id.vp_id);
         tabNames = getResources().getStringArray(R.array.collections);
     }
+
 }

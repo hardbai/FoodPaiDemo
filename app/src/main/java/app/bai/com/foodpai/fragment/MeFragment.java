@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import app.bai.com.foodpai.MyAdapter.MyAdapter;
+import app.bai.com.foodpai.MyApp;
 import app.bai.com.foodpai.R;
 import app.bai.com.foodpai.bean.User;
 import app.bai.com.foodpai.ui.AnalysisActivity;
@@ -34,6 +36,7 @@ public class MeFragment extends BaseFragment {
     private View view;
     private String[] data;
     private PopupWindow mPopWindow;
+    private Button btn_exit;
     private static ImageView imageView;
     static Context context;
     public static Handler loginHandler = new Handler(){
@@ -46,7 +49,6 @@ public class MeFragment extends BaseFragment {
             Glide.with(context).load(user.getUserIcon()).into(imageView);
         }
     };
-
 
     @Nullable
     @Override
@@ -64,7 +66,13 @@ public class MeFragment extends BaseFragment {
         aboutListView();
         imageView = ((ImageView) view.findViewById(R.id.iv_login_id));
         context = getContext();
+        //about(out 0f login);
+        aboutBtnExit();
         return view;
+    }
+
+    private void aboutBtnExit() {
+        btn_exit = (Button) view.findViewById(R.id.btn_exit_id);
     }
 
     private void aboutLogin() {
@@ -135,7 +143,7 @@ public class MeFragment extends BaseFragment {
                         Toast.makeText(getContext(), "评个分吧", Toast.LENGTH_LONG).show();
                         break;
                     case "将食物派分享给朋友们":
-                        Toast.makeText(getContext(), "将食物派分享给朋友们", Toast.LENGTH_LONG).show();
+                        MyApp.getApp().showShare("FoodPai","http://www.boohee.com/","A app about delicious food!");
                         break;
                     case "HealthKit设置":
                         //点击弹出popupwindow
