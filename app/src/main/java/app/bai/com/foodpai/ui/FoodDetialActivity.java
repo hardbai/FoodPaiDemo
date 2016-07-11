@@ -118,6 +118,7 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
                     }
                 }else {
                     try {
+
                         MyApp.getApp().getDbUtils().delete(fCollect);
                     } catch (DbException e) {
                         e.printStackTrace();

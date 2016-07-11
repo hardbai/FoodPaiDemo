@@ -59,10 +59,14 @@ public class MyApp extends Application {
 
                         dbUtils.dropTable(Search.class);
 
+                        dbUtils.dropTable(FoodCollect.class);
+
                         //创建表
                         dbUtils.createTableIfNotExist(Collect.class);//收藏webView的表
 
                         dbUtils.createTableIfNotExist(Search.class);//搜索框中搜藏食物名的表
+
+                        dbUtils.createTableIfNotExist(FoodCollect.class);
 
                     } catch (DbException e) {
                         e.printStackTrace();
@@ -75,6 +79,10 @@ public class MyApp extends Application {
             dbUtils.createTableIfNotExist(Collect.class);
 
             dbUtils.createTableIfNotExist(Search.class);//搜索框中搜藏食物名的表
+
+            dbUtils.createTableIfNotExist(FoodCollect.class);
+
+            dbUtils.createTableIfNotExist(UploadFood.class);
 
             //打印日志信息
             dbUtils.configDebug(true);
