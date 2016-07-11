@@ -178,6 +178,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".ui.FoodDetialActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".ui.MoreElementActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
     </application>
 

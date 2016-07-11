@@ -10,9 +10,9 @@ import com.lidroid.xutils.exception.DbException;
 
 import app.bai.com.foodpai.bean.Collect;
 import app.bai.com.foodpai.bean.FoodCollect;
+import app.bai.com.foodpai.bean.FoodDetialForWiki;
 import app.bai.com.foodpai.bean.Search;
 import app.bai.com.foodpai.bean.UploadFood;
-import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -24,6 +24,15 @@ public class MyApp extends Application {
     private static MyApp app;
     private RequestQueue requestQueue;
     private DbUtils dbUtils;
+    private FoodDetialForWiki.IngredientBean ingredient;
+
+    public FoodDetialForWiki.IngredientBean getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(FoodDetialForWiki.IngredientBean ingredient) {
+        this.ingredient = ingredient;
+    }
 
     public SharedPreferences getConfig() {
         return config;

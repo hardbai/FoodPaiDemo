@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -38,7 +34,7 @@ import app.bai.com.foodpai.bean.FoodDetialForWiki;
 import app.bai.com.foodpai.uri.Uri;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-public class FoodDetialActivity extends AppCompatActivity implements View.OnClickListener,RadioGroup.OnCheckedChangeListener{
+public class FoodDetialActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
 
     private String code;//URL的code
     private String name;//食物的name
@@ -148,7 +144,7 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
                 if(b){
                     try {
                         MyApp.getApp().getDbUtils().saveOrUpdate(fCollect);
-                        Log.i("TAG", "onCheckedChanged: 收藏");
+                        Log.i("TAG", "onCheckedChanged: 收藏"+code+name+calory+imgUrl);
                     } catch (DbException e) {
                         e.printStackTrace();
                     }
@@ -169,7 +165,7 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
         aboutDetial_heat_lv_id();
         aboutElement();
         aboutSuggest();
-        aboutMore();
+
         aboutDetial_radiogroup_id();
     }
     //关于radiogroup的操作
@@ -178,14 +174,10 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    //关于elementMore的操作
-    private void aboutMore() {
-        detial_element_more_tv_id.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+    public void toMore(View view){
+        MyApp.getApp().setIngredient(food.getIngredient());
+        Intent intent = new Intent(this,MoreElementActivity.class);
+        startActivity(intent);
     }
 
     //关于推荐的操作
@@ -317,11 +309,6 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
         Intent receiveIntent = getIntent();
         name = receiveIntent.getStringExtra("name");
         code = receiveIntent.getStringExtra("code");
-
-    }
-    //监听点击事件
-    @Override
-    public void onClick(View view) {
 
     }
 
