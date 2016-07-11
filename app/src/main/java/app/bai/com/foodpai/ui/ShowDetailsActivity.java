@@ -8,6 +8,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.lidroid.xutils.exception.DbException;
@@ -21,7 +23,7 @@ public class ShowDetailsActivity extends AppCompatActivity {
     private ImageView iv_back;
     private WebView webView;
     private ImageView iv_share;
-    private ImageView iv_keep;
+    private CheckBox checkBox_collect;
     private Intent intent;
 
     @Override
@@ -52,20 +54,30 @@ public class ShowDetailsActivity extends AppCompatActivity {
             }
         });
 
-        iv_keep.setOnClickListener(new View.OnClickListener() {
+        checkBox_collect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-              int id = intent.getIntExtra("id",0);
-                String title = intent.getStringExtra("title");
-                Collect collect = new Collect();
-                collect.setId(id);
-                collect.setTitle(title);
-                collect.setUrl(link);
-                try {
-                    MyApp.getApp().getDbUtils().saveOrUpdate(collect);
-                    Log.d("check","ok");
-                } catch (DbException e) {
-                    e.printStackTrace();
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b==true){
+                    int id = intent.getIntExtra("id",0);
+                    String title = intent.getStringExtra("title");
+                    Collect collect = new Collect();
+                    collect.setId(id);
+                    collect.setTitle(title);
+                    collect.setUrl(link);
+                    try {
+                        MyApp.getApp().getDbUtils().saveOrUpdate(collect);
+                        //  Toast.makeText(ShowDetailsActivity.this,"")
+
+                    } catch (DbException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if(b==false){
+                    try {
+                        MyApp.getApp().getDbUtils().deleteAll(Collect.class);
+                    } catch (DbException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -75,6 +87,6 @@ public class ShowDetailsActivity extends AppCompatActivity {
         iv_back = ((ImageView) findViewById(R.id.back));
         webView = ((WebView) findViewById(R.id.show_webView));
         iv_share = ((ImageView) findViewById(R.id.iv_share));
-        iv_keep = ((ImageView) findViewById(R.id.iv_keep));
+        checkBox_collect = ((CheckBox) findViewById(R.id.checkBox_collect));
     }
 }

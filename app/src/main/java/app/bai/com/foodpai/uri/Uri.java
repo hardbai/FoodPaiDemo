@@ -22,6 +22,11 @@ public class Uri {
 
     //foods/?/mode_show
     public static final String URL_WIKIS_III = "http://food.boohee.com/fb/v1/foods/%s/mode_show";
+
+    //搜索页面  需要以下三个联合使用
+    public  static final  String URL_SEARCH_DITALS= "http://food.boohee.com/fb/v1/search?page=%d&order_asc=desc&q=%s&health_mode=0";
+
+
 }
 
 
