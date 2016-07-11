@@ -1,6 +1,7 @@
 package app.bai.com.foodpai.ui;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,13 +14,14 @@ import java.util.List;
 import app.bai.com.foodpai.MyAdapter.ViewPageAdapter;
 import app.bai.com.foodpai.R;
 import app.bai.com.foodpai.fragment.Collec_Fragment;
+import app.bai.com.foodpai.fragment.Collec_food_Fragment;
 
 public class CollectActivity extends AppCompatActivity {
     private Toolbar tb_collect;
     private TabLayout tl_id;
     private ViewPager vp_id;
     private String[] tabNames;
-    private List<Collec_Fragment> fragments;
+    private List<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class CollectActivity extends AppCompatActivity {
     private void initData() {
         fragments = new ArrayList<>();
         fragments.add(new Collec_Fragment());
-        fragments.add(new Collec_Fragment());
+        fragments.add(new Collec_food_Fragment());
     }
 
     private void initWidgets() {

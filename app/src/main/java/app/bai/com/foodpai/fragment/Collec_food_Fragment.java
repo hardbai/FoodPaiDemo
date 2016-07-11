@@ -1,18 +1,15 @@
 package app.bai.com.foodpai.fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.lidroid.xutils.exception.DbException;
@@ -20,41 +17,44 @@ import com.lidroid.xutils.exception.DbException;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.bai.com.foodpai.MyAdapter.MyPaperAdapter;
+import app.bai.com.foodpai.MyAdapter.MyFoodCollcetAdapter;
 import app.bai.com.foodpai.MyApp;
 import app.bai.com.foodpai.R;
-import app.bai.com.foodpai.bean.Collect;
-import app.bai.com.foodpai.ui.ShowDetailsActivity;
+import app.bai.com.foodpai.bean.FoodCollect;
+import app.bai.com.foodpai.ui.FoodDetialActivity;
 
 /**
- * Created by Administrator on 16-7-8.
+ * Created by Administrator on 16-7-11.
  */
-public class Collec_Fragment extends BaseFragment {
+public class Collec_food_Fragment extends BaseFragment {
 
-    private ListView lv_collect;
-    private List<Collect> datas;
-    private MyPaperAdapter adapter;
+    private ListView lv_collect_food;
+    private List<FoodCollect> foodCollect;
+    private MyFoodCollcetAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.collect_fragment, null);
-        lv_collect = (ListView) view.findViewById(R.id.lv_collect_id);
 
-        //关于ListView的操作
+        View view = inflater.inflate(R.layout.collect_food_fragment, null);
+
+        lv_collect_food = (ListView) view.findViewById(R.id.lv_collect_food_id);
+
         aboutListView();
 
-        lv_collect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_collect_food.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent(getContext(), ShowDetailsActivity.class);
-                intent.putExtra("link", ((Collect) adapter.getItem(i)).getUrl());
+                Intent intent = new Intent(getContext(), FoodDetialActivity.class);
+                intent.putExtra("code",((FoodCollect) adapter.getItem(i)).getCode());
+                intent.putExtra("name",((FoodCollect) adapter.getItem(i)).getName());
                 startActivity(intent);
+
             }
         });
 
-        lv_collect.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lv_collect_food.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
 
@@ -65,49 +65,45 @@ public class Collec_Fragment extends BaseFragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int j) {
 
-                                Collect collect = ((Collect) adapter.getItem(i));
+                                FoodCollect foodCollect = ((FoodCollect) adapter.getItem(i));
 
                                 try {
-
-                                    MyApp.getApp().getDbUtils().delete(collect);
+                                    MyApp.getApp().getDbUtils().delete(foodCollect);
 
                                     aboutListView();
 
                                 } catch (DbException e) {
-
                                     e.printStackTrace();
                                 }
+
                             }
                         })
                         .setNegativeButton("取消", null).show();
-
-                return true;
+                return false;
             }
         });
 
         return view;
     }
 
-    public void aboutListView() {
+    private void aboutListView() {
+
+
+        adapter = new MyFoodCollcetAdapter(new ArrayList<FoodCollect>(), getContext());
+
+        //3.设置适配器
+        lv_collect_food.setAdapter(adapter);
+
         //1.数据源
-        datas = new ArrayList<>();
 
         try {
-            datas = MyApp.getApp().getDbUtils().findAll(Collect.class);
+            foodCollect = MyApp.getApp().getDbUtils().findAll(FoodCollect.class);
 
-            Log.i("-----", "onActivityCreated: " + datas.size());
+            adapter.addAll(foodCollect);
 
         } catch (DbException e) {
-
             e.printStackTrace();
-
         }
-        //2.适配器
-        adapter = new MyPaperAdapter(datas, getContext());
-
-        //设置适配器
-        lv_collect.setAdapter(adapter);
 
     }
-
 }

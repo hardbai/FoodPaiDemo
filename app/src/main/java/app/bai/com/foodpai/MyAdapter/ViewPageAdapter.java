@@ -14,8 +14,8 @@ import app.bai.com.foodpai.fragment.Collec_Fragment;
  */
 public class ViewPageAdapter extends FragmentPagerAdapter {
     private String[] tabNames ;
-    private List<Collec_Fragment> fragments;
-    public ViewPageAdapter(FragmentManager fm,String[] tabNames , List<Collec_Fragment> fragments) {
+    private List<Fragment> fragments;
+    public ViewPageAdapter(FragmentManager fm,String[] tabNames , List<Fragment> fragments) {
         super(fm);
         this.tabNames = tabNames;
         this.fragments = fragments;
