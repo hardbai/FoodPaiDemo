@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.lidroid.xutils.exception.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ import java.util.List;
 import app.bai.com.foodpai.MyApp;
 import app.bai.com.foodpai.R;
 import app.bai.com.foodpai.adapter.SearchResultAdapter;
+import app.bai.com.foodpai.bean.Search;
 import app.bai.com.foodpai.bean.SearchResult;
 import app.bai.com.foodpai.uri.Uri;
 
@@ -61,6 +64,15 @@ public class SearchDitalActivity extends AppCompatActivity {
         searchResult222.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         mLV = searchResult222.getRefreshableView();
         mLV.setAdapter(adapter);
+        mLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(SearchDitalActivity.this,FoodDetialActivity.class);
+                intent.putExtra("code",adapter.getItem(i).getCode().toString());
+                intent.putExtra("name",adapter.getItem(i).getName().toString());
+                startActivity(intent);
+            }
+        });
         searchResult222.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -119,6 +131,13 @@ public class SearchDitalActivity extends AppCompatActivity {
         dital_SearchGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Search search = new Search();
+                search.setName(foodName);
+                try {
+                    MyApp.getApp().getDbUtils().saveOrUpdate(search);
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
                 foodName = dital_SearchInput.getText().toString();
                 adapter.clear();
                 loadData();

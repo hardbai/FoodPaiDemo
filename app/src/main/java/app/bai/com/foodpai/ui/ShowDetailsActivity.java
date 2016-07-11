@@ -95,7 +95,6 @@ public class ShowDetailsActivity extends AppCompatActivity {
         checkBox_collect = ((TextView) findViewById(R.id.checkBox_collect));
     }
 
-
     public boolean isCollected(String title){
         List<Collect> collects = null;
         try {
@@ -104,7 +103,7 @@ public class ShowDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         for (Collect c:collects) {
-            if(c.getTitle().equals(title)){
+            if(title.equals(c.getTitle())){
                 return false;
             }
         }
