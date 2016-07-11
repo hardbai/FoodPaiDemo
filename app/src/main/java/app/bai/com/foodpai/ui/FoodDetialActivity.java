@@ -72,6 +72,7 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
     private LinearLayout food_reference_id;
     private RadioGroup detial_radiogroup_id;
     private CheckBox detial_tb_collect_cb_id;
+    private FoodCollect find;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,41 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
                 finish();
             }
         });
+        try {
+            find = MyApp.getApp().getDbUtils().findById(FoodCollect.class,code);
+            if(find!=null){
+                detial_tb_collect_cb_id.setChecked(true);
+            }else{
+                detial_tb_collect_cb_id.setChecked(false);
+            }
+            detial_tb_collect_cb_id.setClickable(false);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //下载食物详情数据
+    private void downloadFoodData() {
+        String urlStr = String.format(Uri.URL_WIKIS_III,code);
+        StringRequest stringRequest = new StringRequest(urlStr, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                food = gson.fromJson(response, FoodDetialForWiki.class);
+                //关于控件的操作
+                aboutWidget();
+
+            }
+        }, null);
+        stringRequest.setTag("detial");
+        MyApp.getApp().getRequestQueue().add(stringRequest);
+    }
+
+
+    //关于控件的操作
+    private void aboutWidget() {
+        detial_tb_collect_cb_id.setClickable(true);
         detial_tb_collect_cb_id.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -126,31 +162,9 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         });
-    }
-
-    //下载食物详情数据
-    private void downloadFoodData() {
-        String urlStr = String.format(Uri.URL_WIKIS_III,code);
-        StringRequest stringRequest = new StringRequest(urlStr, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson gson = new Gson();
-                food = gson.fromJson(response, FoodDetialForWiki.class);
-                //关于控件的操作
-                aboutWidget();
-
-            }
-        }, null);
-        stringRequest.setTag("detial");
-        MyApp.getApp().getRequestQueue().add(stringRequest);
-    }
-
-
-    //关于控件的操作
-    private void aboutWidget() {
         Glide.with(this).load(food.getThumb_image_url()).bitmapTransform(new CropCircleTransformation(this)).into(detial_food_name_iv_id);
         detial_food_name_tv_id.setText(food.getName());
-        detial_food_cal_jo_tv_id.setText(food.getCalory()+"/每100克");
+        detial_food_cal_jo_tv_id.setText(food.getCalory()+"千卡/每100克");
         aboutDetialReference();
         aboutDetial_heat_lv_id();
         aboutElement();
@@ -190,7 +204,7 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
 
     //关于营养元素的操作
     private void aboutElement() {
-         detial_element_heat_id.setText(food.getCalory()+"千卡");
+         detial_element_heat_id.setText(food.getCalory());
         detial_element_heat_light_id.setText(food.getLights().getCalory());
         detial_element_protein_id.setText(food.getProtein());
         detial_element_protein_light_id.setText(food.getLights().getFat());
@@ -321,11 +335,11 @@ public class FoodDetialActivity extends AppCompatActivity implements View.OnClic
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
         switch (checkedId){
             case R.id.detial_ca_rb_id:
-                detial_food_cal_jo_tv_id.setText(food.getCalory());
+                detial_food_cal_jo_tv_id.setText(food.getCalory()+"千卡/每100克");
                 detial_element_heat_id.setText(food.getCalory());
                 break;
             case R.id.detial_jo_rb_id:
-                detial_food_cal_jo_tv_id.setText(food.getProtein());
+                detial_food_cal_jo_tv_id.setText(food.getProtein()+"千焦/每100克");
                 detial_element_heat_id.setText(food.getProtein());
                 break;
 

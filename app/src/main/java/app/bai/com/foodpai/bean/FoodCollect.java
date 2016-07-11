@@ -9,9 +9,7 @@ import com.lidroid.xutils.db.annotation.Table;
  */
 @Table(name = "foodCollect")
 public class FoodCollect {
-    @Id(column = "id")
-    private int id;
-    @Column(column = "code")
+    @Id(column = "code")
     private String code;
     @Column(column = "name")
     private String name;
@@ -19,6 +17,9 @@ public class FoodCollect {
     private String calory;
     @Column(column = "imgUrl")
     private String imgUrl;
+
+    public FoodCollect() {
+    }
 
     public FoodCollect(String code, String name, String calory, String imgUrl) {
         this.code = code;
@@ -34,14 +35,6 @@ public class FoodCollect {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCode() {

@@ -50,6 +50,7 @@
                     android:src="@drawable/ic_arrow_right_normal"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/wiki_group_ll_id"
                 android:background="#ffffff"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
@@ -80,6 +81,7 @@
                 </app.bai.com.foodpai.CustomView.MyGridView>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/wiki_brand_ll_id"
                 android:background="#ffffff"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
@@ -110,6 +112,7 @@
                 </app.bai.com.foodpai.CustomView.MyGridView>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/wiki_res_ll_id"
                 android:background="#ffffff"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"

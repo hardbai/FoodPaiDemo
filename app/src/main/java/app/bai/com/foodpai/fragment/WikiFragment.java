@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,20 +35,24 @@ public class WikiFragment extends BaseFragment {
     private MyWikiAdapterForPrimary adapterForGroup;
     private MyWikiAdapterForPrimary adapterForBrand;
     private MyWikiAdapterForPrimary adapterForRes;
-    private LinearLayout wiki_conpare_ll_id;
+    private LinearLayout wiki_compare_ll_id;
     private MyGridView wiki_group_gv_id;
     private MyGridView wiki_brand_gv_id;
     private MyGridView wiki_res_gv_id;
+    private View wiki_group_ll_id;
+    private View wiki_brand_ll_id;
+    private View wiki_res_ll_id;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wiki_fragment_layout,null);
-        wiki_conpare_ll_id = (LinearLayout) view.findViewById(R.id.wiki_compare_ll_id);
+        wiki_compare_ll_id = (LinearLayout) view.findViewById(R.id.wiki_compare_ll_id);
         wiki_group_gv_id = (MyGridView) view .findViewById(R.id.wiki_group_gv_id);
         wiki_brand_gv_id= (MyGridView) view .findViewById(R.id.wiki_brand_gv_id);
         wiki_res_gv_id = (MyGridView) view .findViewById(R.id.wiki_res_gv_id);
         //给食物对比添加监听器
-        wiki_conpare_ll_id.setOnClickListener(new View.OnClickListener() {
+        wiki_compare_ll_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(view.getId()==R.id.wiki_compare_ll_id){
@@ -56,6 +61,14 @@ public class WikiFragment extends BaseFragment {
                 }
             }
         });
+        wiki_group_ll_id = ((LinearLayout) view.findViewById(R.id.wiki_group_ll_id));
+        wiki_brand_ll_id = ((LinearLayout) view.findViewById(R.id.wiki_brand_ll_id));
+        wiki_res_ll_id = ((LinearLayout) view.findViewById(R.id.wiki_res_ll_id));
+        wiki_group_ll_id.setVisibility(View.GONE);
+        wiki_brand_ll_id.setVisibility(View.GONE);
+        wiki_res_ll_id.setVisibility(View.GONE);
+        PullToRefreshScrollView p = null;
+
         //思路:
         //1)准备数据
         String url = Uri.URL_WIKIS_I;
@@ -135,6 +148,9 @@ public class WikiFragment extends BaseFragment {
                 Gson gson = new Gson();
                 FoodForWiki food = gson.fromJson(response,FoodForWiki.class);
                 data = food.getGroup();
+                wiki_group_ll_id.setVisibility(View.VISIBLE);
+                wiki_brand_ll_id.setVisibility(View.VISIBLE);
+                wiki_res_ll_id.setVisibility(View.VISIBLE);
 //                food.getGroup();
                 adapterForGroup.addAll(food.getGroup());
                 adapterForBrand.addAll(food.getGroup());
