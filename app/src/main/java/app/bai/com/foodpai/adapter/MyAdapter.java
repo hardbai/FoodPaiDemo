@@ -105,4 +105,8 @@ public abstract class MyAdapter<T> extends BaseAdapter {
             return view;
         }
     }
+    public void clear(){
+        data.clear();
+        notifyDataSetChanged();
+    }
 }

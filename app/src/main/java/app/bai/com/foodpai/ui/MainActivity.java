@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import app.bai.com.foodpai.R;
+import cn.jpush.android.api.JPushInterface;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,5 +35,17 @@ public class MainActivity extends AppCompatActivity {
         //透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         handler.sendEmptyMessageDelayed(0,1000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
     }
 }

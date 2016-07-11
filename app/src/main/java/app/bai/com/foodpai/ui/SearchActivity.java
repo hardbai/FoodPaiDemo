@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,6 +72,7 @@ public class SearchActivity extends AppCompatActivity  {
 
                         //跳转到详情页
                         Intent intent = new Intent(SearchActivity.this,SearchDitalActivity.class);
+                        intent.putExtra("name",input.getText().toString());
                         startActivity(intent);
 
                         finish();
@@ -96,6 +98,15 @@ public class SearchActivity extends AppCompatActivity  {
         historyClear = ((LinearLayout) findViewById(R.id.ll_clearHistory));
         adapter = new showSearchHistoryAdapter(search,this,R.layout.searchhistory_lv_item);
         searchHistory_LV.setAdapter(adapter);
+        searchHistory_LV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(SearchActivity.this,SearchDitalActivity.class);
+                intent.putExtra("name",adapter.getItem(i).getName());
+                Log.d("name","--------"+adapter.getItem(i).getName());
+                startActivity(intent);
+            }
+        });
         historyClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

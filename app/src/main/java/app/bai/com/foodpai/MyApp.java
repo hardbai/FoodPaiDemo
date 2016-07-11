@@ -10,6 +10,7 @@ import com.lidroid.xutils.exception.DbException;
 
 import app.bai.com.foodpai.bean.Collect;
 import app.bai.com.foodpai.bean.Search;
+import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -33,7 +34,8 @@ public class MyApp extends Application {
         config = getSharedPreferences("config", MODE_PRIVATE);
         initVolley();
         initDbUtils();
-
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
     }
 
