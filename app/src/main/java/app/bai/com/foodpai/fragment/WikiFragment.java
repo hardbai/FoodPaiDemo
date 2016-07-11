@@ -85,6 +85,23 @@ public class WikiFragment extends BaseFragment {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 initDataSource(url);
+                new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                            getActivity().runOnUiThread(new Thread(){
+                                @Override
+                                public void run() {
+                                    pull_refresh_scrollview.onRefreshComplete();
+                                }
+                            });
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
             }
 
         });
@@ -165,7 +182,7 @@ public class WikiFragment extends BaseFragment {
                 wiki_group_ll_id.setVisibility(View.VISIBLE);
                 wiki_brand_ll_id.setVisibility(View.VISIBLE);
                 wiki_res_ll_id.setVisibility(View.VISIBLE);
-                pull_refresh_scrollview.onRefreshComplete();
+
 //                food.getGroup();
                 adapterForGroup.addAll(food.getGroup());
                 adapterForBrand.addAll(food.getGroup());
