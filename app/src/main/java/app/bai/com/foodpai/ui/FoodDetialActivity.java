@@ -136,26 +136,28 @@ public class FoodDetialActivity extends AppCompatActivity implements RadioGroup.
         detial_tb_collect_cb_id.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                String code = food.getCode();
-                String name = food.getName();
-                String calory = food.getCalory();
-                String imgUrl = food.getThumb_image_url();
-                FoodCollect fCollect = new FoodCollect(code,name,calory,imgUrl);
-                if(b){
-                    try {
-                        MyApp.getApp().getDbUtils().saveOrUpdate(fCollect);
-                        Log.i("TAG", "onCheckedChanged: 收藏"+code+name+calory+imgUrl);
-                    } catch (DbException e) {
-                        e.printStackTrace();
-                    }
-                }else {
-                    try {
+                    String code = food.getCode();
+                    String name = food.getName();
+                    String calory = food.getCalory();
+                    String imgUrl = food.getThumb_image_url();
+                    FoodCollect fCollect = new FoodCollect(code,name,calory,imgUrl);
+                    if(b){
+                        try {
+                            MyApp.getApp().getDbUtils().saveOrUpdate(fCollect);
+                            Log.i("TAG", "onCheckedChanged: 收藏"+code+name+calory+imgUrl);
+                        } catch (DbException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        try {
 
-                        MyApp.getApp().getDbUtils().delete(fCollect);
-                    } catch (DbException e) {
-                        e.printStackTrace();
-                    }
-                }
+                            MyApp.getApp().getDbUtils().delete(fCollect);
+                        } catch (DbException e) {
+                            e.printStackTrace();
+                        }
+                     }
+
+
             }
         });
         Glide.with(this).load(food.getThumb_image_url()).bitmapTransform(new CropCircleTransformation(this)).into(detial_food_name_iv_id);

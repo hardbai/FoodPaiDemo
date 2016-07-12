@@ -206,4 +206,5 @@ public class MeFragment extends BaseFragment {
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
     }
 
+
 }
