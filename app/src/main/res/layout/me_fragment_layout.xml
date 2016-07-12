@@ -45,7 +45,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_login_id"
                 android:layout_centerHorizontal="true"
+                android:background="@drawable/btn_login"
                 android:text="点击登陆"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="5dp"
                 android:onClick="login"
                 android:textSize="15sp"/>
         </RelativeLayout>
@@ -177,8 +180,9 @@
                 android:id="@+id/btn_exit_id"
                 android:layout_width="340dp"
                 android:layout_height="40dp"
-                android:background="#FF0000"
+                android:background="@drawable/btn_shape"
                 android:text="退出登录"
+
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:textColor="#FFFFFF"

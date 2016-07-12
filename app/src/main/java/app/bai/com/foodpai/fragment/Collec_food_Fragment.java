@@ -47,8 +47,8 @@ public class Collec_food_Fragment extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Intent intent = new Intent(getContext(), FoodDetialActivity.class);
-                intent.putExtra("code",((FoodCollect) adapter.getItem(i)).getCode());
-                intent.putExtra("name",((FoodCollect) adapter.getItem(i)).getName());
+                intent.putExtra("code", ((FoodCollect) adapter.getItem(i)).getCode());
+                intent.putExtra("name", ((FoodCollect) adapter.getItem(i)).getName());
                 startActivity(intent);
 
             }
@@ -79,7 +79,7 @@ public class Collec_food_Fragment extends BaseFragment {
                             }
                         })
                         .setNegativeButton("取消", null).show();
-                return false;
+                return true;
             }
         });
 

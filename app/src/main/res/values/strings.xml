@@ -63,6 +63,12 @@
         <item>食物</item>
     </string-array>
 
+    <string-array name="foodAnalysisItems">
+        <item>最近搜索</item>
+        <item>我的收藏</item>
+        <item>我的上传</item>
+    </string-array>
+
 
     <string-array name="searchOrderItems">
         <item>常见</item>

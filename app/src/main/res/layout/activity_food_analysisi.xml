@@ -6,6 +6,10 @@
     android:orientation="vertical"
     tools:context="app.bai.com.foodpai.ui.FoodAnalysisiActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_food_analysis_id"
         android:layout_width="match_parent"
@@ -13,10 +17,60 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="Food Analysis"
+            android:text="饮食分析"
             android:textSize="18sp"
             android:layout_gravity="center_horizontal"
             android:gravity="center_vertical"/>
+
+
     </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tv_search_food_id"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="完成"
+            android:textSize="18sp"
+            android:textColor="#FF0000"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginRight="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_homepage_search"/>
+        <EditText
+            android:id="@+id/et_search_food_id"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:hint="请输入食物的名称"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_search_food_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_search_food_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

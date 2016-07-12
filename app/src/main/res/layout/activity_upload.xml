@@ -69,7 +69,6 @@
         android:textSize="18sp"
         android:textColor="#FFFFFF"
         android:onClick="startUpload"
-        android:background="#FF0000"/>
-
+        android:background="@drawable/btn_shape"/>
 
 </LinearLayout>

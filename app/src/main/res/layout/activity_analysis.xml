@@ -12,6 +12,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/tb_analysis_id">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Food Analysis"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_horizontal"/>
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout

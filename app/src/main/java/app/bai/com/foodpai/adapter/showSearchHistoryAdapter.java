@@ -19,8 +19,6 @@ public class showSearchHistoryAdapter extends MyAdapter<Search> {
         this.data = data;
     }
 
-
-
     @Override
     public void bindData(ViewHolder vh, Search search) {
         foodName = ((TextView) vh.getView(R.id.tv_foodName));
