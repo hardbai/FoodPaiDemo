@@ -1,6 +1,7 @@
 package app.bai.com.foodpai.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.liucanwen.app.headerfooterrecyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.liucanwen.app.headerfooterrecyclerview.RecyclerViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +36,6 @@ import app.bai.com.foodpai.adapter.ShowListViewAdapter;
 import app.bai.com.foodpai.adapter.ShowViewPagerAdapter;
 import app.bai.com.foodpai.ui.ShowDetailsActivity;
 import app.bai.com.foodpai.uri.Uri;
-import com.liucanwen.app.headerfooterrecyclerview.HeaderAndFooterRecyclerViewAdapter;
-import com.liucanwen.app.headerfooterrecyclerview.RecyclerViewUtils;
 
 /**
  * Created by 86724 on 2016/7/5 0005.
@@ -53,27 +54,31 @@ public class GuangFragment extends BaseFragment {
     private ImageView image;
 
     //接收到handler发送消息后切换下一个ViewPager页面
-    private final Handler handler = new Handler(){
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            showViewpager.setCurrentItem((showViewpager.getCurrentItem()+1)%4);
-            handler.sendEmptyMessageDelayed(0,3000);
+            showViewpager.setCurrentItem((showViewpager.getCurrentItem() + 1) % 4);
+            handler.sendEmptyMessageDelayed(0, 3000);
         }
     };
-    public static GuangFragment newInstance(){
+    private ImageView imageView;
+    private AnimationDrawable drawable;
+
+    public static GuangFragment newInstance() {
         GuangFragment guangFrament = new GuangFragment();
-        return  guangFrament;
+        return guangFrament;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.guang_fragment_layout,null);
+        view = inflater.inflate(R.layout.guang_fragment_layout, null);
+        imageView = ((ImageView) view.findViewById(R.id.guang_loadAnimation));
         listViewData = new ArrayList<Food.FeedsBean>();
 
         initView();
-        showListViewAdapter = new ShowListViewAdapter(listViewData , getContext());
+        showListViewAdapter = new ShowListViewAdapter(listViewData, getContext());
         //设置头适配器
         HeaderAndFooterRecyclerViewAdapter adapter = new HeaderAndFooterRecyclerViewAdapter(showListViewAdapter);
 
@@ -90,7 +95,7 @@ public class GuangFragment extends BaseFragment {
         //View headerView = inflater.inflate(R.layout.show_list_header_layout,null);
 
         //得到头布局
-        View headerView = inflater.inflate(R.layout.show_list_header_layout,null);
+        View headerView = inflater.inflate(R.layout.show_list_header_layout, null);
 
         //得到头布局中的控件（ViewPager）
         showViewpager = ((ViewPager) headerView.findViewById(R.id.showViewPager));
@@ -99,32 +104,32 @@ public class GuangFragment extends BaseFragment {
         showViewpager.setAdapter(viewPagerAdapter);
 
         //设置ViewPager转场动画
-        showViewpager.setPageTransformer(true,new FlipHorizontalTransformer());
+        showViewpager.setPageTransformer(true, new FlipHorizontalTransformer());
 
 
         recyclerView.setAdapter(adapter);
 
         //把头布局设置给RecyclerView
-        RecyclerViewUtils.setHeaderView(recyclerView,headerView);
+        RecyclerViewUtils.setHeaderView(recyclerView, headerView);
 
         //设置RecyclerView点击事件
         showListViewAdapter.setOnItemClickListener(new ShowListViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View itemView) {
                 Intent intent = new Intent(getContext(), ShowDetailsActivity.class);
-                String str = listViewData.get(position-1).getLink();
-                String titleStr = listViewData.get(position-1).getTitle();
-                int id = listViewData.get(position-1).getId();
-                intent.putExtra("title",titleStr);
-                intent.putExtra("id",id);
-                intent.putExtra("link",str);
+                String str = listViewData.get(position - 1).getLink();
+                String titleStr = listViewData.get(position - 1).getTitle();
+                int id = listViewData.get(position - 1).getId();
+                intent.putExtra("title", titleStr);
+                intent.putExtra("id", id);
+                intent.putExtra("link", str);
                 startActivity(intent);
             }
         });
 
 
         //handler延迟3秒发送消息
-        handler.sendEmptyMessageDelayed(0,3000);
+        handler.sendEmptyMessageDelayed(0, 3000);
 
         loadListViewData();//请求ListView数据
 
@@ -149,17 +154,20 @@ public class GuangFragment extends BaseFragment {
     * 请求ViewPager数据
     * */
     private void loadViewPageData() {
+
         StringRequest stringRequest = new StringRequest(Uri.URL_SHOW_IMAGE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                Banners banners = gson.fromJson(response,Banners.class);
-                List<ImageView> list = new ArrayList<ImageView>();
-                for(int i=0;i<banners.getBanners().size();i++){
-                    ImageView imageView = new ImageView(getContext());
+                Banners banners = gson.fromJson(response, Banners.class);
 
+
+                List<ImageView> list = new ArrayList<ImageView>();
+                for (int i = 0; i < banners.getBanners().size(); i++) {
+                    ImageView imageView = new ImageView(getContext());
                     Glide.with(getContext()).load(banners.getBanners().get(i).getImage_key()).into(imageView);
                     list.add(imageView);
+
                 }
                 viewPagerAdapter.addAll(list);
 
@@ -175,18 +183,26 @@ public class GuangFragment extends BaseFragment {
     *
     * */
     private void loadListViewData() {
-        if(page > 20){
-            Toast.makeText(getContext(),"最后一页啦！！！！", Toast.LENGTH_LONG).show();
+        if (page == 1) {
+            imageView.setVisibility(View.VISIBLE);
+            drawable = (AnimationDrawable) imageView.getBackground();
+            drawable.setOneShot(false);
+            drawable.start();
         }
-        else {
+        if (page > 20) {
+            Toast.makeText(getContext(), "最后一页啦！！！！", Toast.LENGTH_LONG).show();
+        } else {
             StringRequest stringRequest = new StringRequest(Uri.URL_SHOW_LIST + page, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson = new Gson();
+                    imageView.setVisibility(View.GONE);
+                    drawable.stop();
                     food = gson.fromJson(response, Food.class);
                     showListViewAdapter.addAll(food.getFeeds());
                     listViewData.addAll(food.getFeeds());
                     Log.d("t", "------" + food.getFeeds());
+
                 }
             }, null);
             MyApp.getApp().getRequestQueue().add(stringRequest);
@@ -203,9 +219,9 @@ public class GuangFragment extends BaseFragment {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(layoutManager.findLastVisibleItemPosition() == showListViewAdapter.getItemCount()) {
-                    Log.d("count","---------------------"+showListViewAdapter.getItemCount());
-                    page ++;
+                if (layoutManager.findLastVisibleItemPosition() == showListViewAdapter.getItemCount()) {
+                    Log.d("count", "---------------------" + showListViewAdapter.getItemCount());
+                    page++;
                     loadListViewData();
                 }
             }
@@ -217,6 +233,7 @@ public class GuangFragment extends BaseFragment {
     * 下拉刷新
     * */
     private void downRefresh() {
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

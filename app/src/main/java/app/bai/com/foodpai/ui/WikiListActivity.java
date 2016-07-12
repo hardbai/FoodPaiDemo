@@ -1,21 +1,19 @@
 package app.bai.com.foodpai.ui;
 
-import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -61,6 +59,8 @@ public class WikiListActivity extends AppCompatActivity {
     private TextView wiki_list_sub_id;//toolbar里面的TextView,子数据的popupwindow就显示在它下面
     private ListView sub_popup_lv_id;//subPopUpWindow里面的ListView
     private ArrayList<String> subs;//传过来的子数据
+    private ImageView imageView;
+    private AnimationDrawable background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,6 +295,9 @@ public class WikiListActivity extends AppCompatActivity {
 
     //填充数据
     private void fillDataSource(String url) {
+        imageView.setVisibility(View.VISIBLE);
+        background.start();
+
         StringRequest request = new StringRequest(url, new Response.Listener<String>() {
 
             @Override
@@ -303,7 +306,8 @@ public class WikiListActivity extends AppCompatActivity {
                 ListFoodForWiki listFood = gson.fromJson(response, ListFoodForWiki.class);
                 foods = listFood.getFoods();
                 adapter.add(foods,true);
-
+                background.stop();
+                imageView.setVisibility(View.GONE);
 
             }
         }, null);
@@ -315,6 +319,8 @@ public class WikiListActivity extends AppCompatActivity {
     //初始化控件
     private void initWidget() {
         wiki_list_title_id = (TextView) findViewById(R.id.wiki_list_title_id);
+        imageView = ((ImageView) findViewById(R.id.wikiList_loadAnimation));
+        background = ((AnimationDrawable) imageView.getBackground());
         wiki_list_lv_id = (PullToRefreshListView) findViewById(R.id.wiki_list_lv_id);
         wiki_list_order_cb_id = ((CheckBox) findViewById(R.id.wiki_list_order_cb_id));
         mRelativeLayoutId = ((RelativeLayout) findViewById(R.id.wiki_list_rl_id));

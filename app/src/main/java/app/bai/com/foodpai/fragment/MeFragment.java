@@ -37,7 +37,7 @@ public class MeFragment extends BaseFragment {
     private View view;
     private String[] data;
     private PopupWindow mPopWindow;
-    private static Button btn_exit;
+    public static Button btn_exit;
     private static ImageView imageView;
     static Context context;
     private static Button login;

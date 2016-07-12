@@ -1,15 +1,14 @@
 package app.bai.com.foodpai.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,19 +28,39 @@ public class ShowDetailsActivity extends AppCompatActivity {
     private ImageView iv_share;
     private TextView checkBox_collect;
     private Intent intent;
+    private ImageView imageView;
+    private AnimationDrawable background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_details);
         initView();
+        imageView.setVisibility(View.VISIBLE);
+        background = ((AnimationDrawable) imageView.getBackground());
+        background.setOneShot(false);
+        background.start();
         intent = getIntent();
        final String link = intent.getStringExtra("link");
         Log.d("link","---------------"+link);
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient()
+
+        {
+            @Override
+            public void onPageFinished(WebView view, String url)
+            {
+                background.stop();
+                imageView.setVisibility(View.GONE);
+                webView.setVisibility(View.VISIBLE);
+                super.onPageFinished(view, url);
+            }
+        });
+
+
+
         webView.loadUrl(link);
 
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +112,7 @@ public class ShowDetailsActivity extends AppCompatActivity {
         webView = ((WebView) findViewById(R.id.show_webView));
         iv_share = ((ImageView) findViewById(R.id.iv_share));
         checkBox_collect = ((TextView) findViewById(R.id.checkBox_collect));
+        imageView = ((ImageView) findViewById(R.id.showDetails_loadAnimation));
     }
 
     public boolean isCollected(String title){
