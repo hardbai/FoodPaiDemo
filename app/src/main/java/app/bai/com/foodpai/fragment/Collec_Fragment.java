@@ -50,6 +50,7 @@ public class Collec_Fragment extends BaseFragment {
 
                 Intent intent = new Intent(getContext(), ShowDetailsActivity.class);
                 intent.putExtra("link", ((Collect) adapter.getItem(i)).getUrl());
+                intent.putExtra("title",((Collect) adapter.getItem(i)).getTitle());
                 startActivity(intent);
             }
         });
