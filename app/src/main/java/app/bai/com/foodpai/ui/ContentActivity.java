@@ -58,7 +58,6 @@ public class ContentActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         LoginActivity.removeHandler.sendEmptyMessage(1);
-        MyApp.getApp().config.edit().putBoolean("isLogin",false);
-        MeFragment.btn_exit.setVisibility(View.GONE);
+        MyApp.getApp().config.edit().putBoolean("isLogin",false).commit();
     }
 }
