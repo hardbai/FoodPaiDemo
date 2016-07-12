@@ -61,9 +61,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:drawableLeft="@drawable/collect_radiobutton"
                 android:button="@null"
                 android:text="收藏"/>
         </RelativeLayout>
     </LinearLayout>
+    <ImageView
+        android:id="@+id/showDetails_loadAnimation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/loadanimation"
+        android:visibility="gone"/>
 </RelativeLayout>

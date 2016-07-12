@@ -1,15 +1,16 @@
 package app.bai.com.foodpai.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -46,6 +47,8 @@ public class WikiFragment extends BaseFragment {
     private View wiki_res_ll_id;
     private PullToRefreshScrollView pull_refresh_scrollview;
     private ScrollView mScrollView;
+    private ImageView imageView;
+    private AnimationDrawable background;
 
     @Nullable
     @Override
@@ -56,6 +59,8 @@ public class WikiFragment extends BaseFragment {
         wiki_group_gv_id = (MyGridView) view .findViewById(R.id.wiki_group_gv_id);
         wiki_brand_gv_id= (MyGridView) view .findViewById(R.id.wiki_brand_gv_id);
         wiki_res_gv_id = (MyGridView) view .findViewById(R.id.wiki_res_gv_id);
+        imageView = ((ImageView) view.findViewById(R.id.wikiFragment_loadAnimation));
+        background = ((AnimationDrawable) imageView.getBackground());
         //给食物对比添加监听器
         wiki_compare_ll_id.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,11 +177,16 @@ public class WikiFragment extends BaseFragment {
      * 准备数据
      */
     private void initDataSource(String url) {
+        imageView.setVisibility(View.VISIBLE);
+        background.start();
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
+                background.stop();
+                imageView.setVisibility(View.GONE);
+
                 FoodForWiki food = gson.fromJson(response,FoodForWiki.class);
                 data = food.getGroup();
                 wiki_group_ll_id.setVisibility(View.VISIBLE);
