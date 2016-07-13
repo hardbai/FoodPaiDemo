@@ -52,18 +52,20 @@ public class GuangFragment extends BaseFragment {
     private ShowViewPagerAdapter viewPagerAdapter;
     private ViewPager showViewpager;
     private ImageView image;
+    private Banners banners;
 
     //接收到handler发送消息后切换下一个ViewPager页面
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            showViewpager.setCurrentItem((showViewpager.getCurrentItem() + 1) % 4);
+            showViewpager.setCurrentItem((showViewpager.getCurrentItem() + 1) % banners.getBanners().size());
             handler.sendEmptyMessageDelayed(0, 3000);
         }
     };
     private ImageView imageView;
     private AnimationDrawable drawable;
+
 
     public static GuangFragment newInstance() {
         GuangFragment guangFrament = new GuangFragment();
@@ -129,7 +131,7 @@ public class GuangFragment extends BaseFragment {
 
 
         //handler延迟3秒发送消息
-        handler.sendEmptyMessageDelayed(0, 3000);
+
 
         loadListViewData();//请求ListView数据
 
@@ -159,17 +161,20 @@ public class GuangFragment extends BaseFragment {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                Banners banners = gson.fromJson(response, Banners.class);
+                banners = gson.fromJson(response, Banners.class);
 
 
                 List<ImageView> list = new ArrayList<ImageView>();
                 for (int i = 0; i < banners.getBanners().size(); i++) {
                     ImageView imageView = new ImageView(getContext());
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    imageView.setAdjustViewBounds(true);
                     Glide.with(getContext()).load(banners.getBanners().get(i).getImage_key()).into(imageView);
                     list.add(imageView);
 
                 }
                 viewPagerAdapter.addAll(list);
+                handler.sendEmptyMessageDelayed(0, 3000);
 
             }
         }, null);
